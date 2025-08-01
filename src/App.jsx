@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Features from './components/Features';
@@ -15,13 +15,21 @@ import LimitationsSection from './components/LimitationsSection';
 import ConnectionsSection from './components/ConnectionsSection';
 import HeroSection from './components/HeroSection';
 import AboutMeSection from './components/AboutMeSection';
+import LoadingScreen from './components/loadingscreen';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const handleLoadingComplete = useCallback(() => setLoading(false), []);
+
+  if (loading) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
+
   return (
     <div className="">
-      <HeroSection />
-      <LimitationsSection />
       <AboutMeSection />
+      {/* <HeroSection /> */}
+      <LimitationsSection />
       <Projects />
       <ShowcaseLayout />
       <TechStack />
